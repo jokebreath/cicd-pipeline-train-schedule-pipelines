@@ -13,7 +13,7 @@ pipeline {
         branch 'master'
       }
       steps {
-        withCredentials([usernamePassword(credentialsId: 'deploy_user', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+        withCredentials([usernamePassword(credentialsId: 'deploy_user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
           sshPublisher(
             failOnError: true,
             continueOnError: false,
@@ -24,7 +24,7 @@ pipeline {
                   username: "$USERNAME"
                   encryptedPassphrase: "$PASSWORD"
                 ],
-                transfer: [
+                transfers: [
                   sshTransfer(
                     sourceFiles: 'dist/trainSchedule.zip',
                     removePrefix: 'dist/',
